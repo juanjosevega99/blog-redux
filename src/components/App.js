@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
+      users: []
+    }
+  }
+
+  async componentDidMount() {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/users')
+    console.log(response)
+    this.setState({
       users: [
         {
           name: 'Juan',
@@ -16,7 +25,7 @@ class App extends Component {
           link: 'ana.com'
         }
       ]
-    }
+    })
   }
 
   addRows = () => (
