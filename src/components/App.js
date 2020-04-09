@@ -1,54 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const App = () => {
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      users: [
+        {
+          name: 'Juan',
+          email: 'juan@gmail.com',
+          link: 'juan.com'
+        },
+        {
+          name: 'Ana',
+          email: 'ana@gmail.com',
+          link: 'ana.com'
+        }
+      ]
+    }
+  }
 
-  const ponerFilas = () => [
-    <tr>
-      <td>
-        Juan
-      </td>
-      <td>
-        juanjosevegaq@gmail.com
-      </td>
-      <td>
-        Juan.com
-      </td>
-    </tr>,
-    <tr>
-      <td>
-        Ana
-      </td>
-      <td>
-        ana@gmail.com
-      </td>
-      <td>
-        Ana.com
-      </td>
-    </tr>
-  ];
-
-  return (
-    <div className="margin">
-      <table className="table">
-        <thead>
-          <tr>
-            <th>
-              Name
-            </th>
-            <th>
-              Email
-            </th>
-            <th>
-              Link
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          { ponerFilas() }
-        </tbody>
-      </table>
-    </div>
+  addRows = () => (
+    this.state.users.map((user) => (
+      <tr>
+        <td>
+          { user.name }
+        </td>
+        <td>
+          { user.email }
+        </td>
+        <td>
+          { user.link }
+        </td>
+      </tr>
+    ))
   )
+
+  render() {
+    return (
+      <div className="margin">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Email
+              </th>
+              <th>
+                Link
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            { this.addRows() }
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 
 export default App;
