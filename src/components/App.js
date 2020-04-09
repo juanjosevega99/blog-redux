@@ -8,8 +8,10 @@ const Tasks = () => <div>Tasks</div>
 const App = () => (
   <BrowserRouter>
     <Main />
-    <Route exact path='/' component={ Users } />
-    <Route exact path='/tasks' component={ Tasks } />
+    <div className="margin">
+      <Route exact path='/' component={ Users } />
+      <Route exact path='/tasks' component={ Tasks } />
+    </div>
   </BrowserRouter>
 )
 
