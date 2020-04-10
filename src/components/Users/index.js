@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import { connect } from 'react-redux'
 
+import * as usersActions from '../../actions/usersActions'
+
 class Users extends Component {
 
-  // async componentDidMount() {
-  //   const response = await axios.get('https://jsonplaceholder.typicode.com/users')
-  //   this.setState({
-  //     users: response.data
-  //   })
-  // }
+  componentDidMount() {
+    // const response = await axios.get('https://jsonplaceholder.typicode.com/users')
+    // this.setState({
+    //   users: response.data
+    // })
+    this.props.bringEverything()
+  }
 
   addRows = () => (
     this.props.users.map((user) => (
@@ -57,4 +60,4 @@ const mapStateToProps = (reducers) => {
   return reducers.usersReducers
 }
 
-export default connect(mapStateToProps, {})(Users);
+export default connect(mapStateToProps, usersActions)(Users);
