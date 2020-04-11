@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import Spinner from '../General/Spinner'
 
 import * as usersActions from '../../actions/usersActions'
 
@@ -7,6 +8,33 @@ class Users extends Component {
 
   componentDidMount() {
     this.props.bringEverything()
+  }
+
+  addContent = () => {
+    if (this.props.loading) {
+      return <Spinner />
+    }
+
+    return (
+      <table className="table">
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+              Link
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          { this.addRows() }
+        </tbody>
+      </table>
+    )
   }
 
   addRows = () => (
@@ -28,24 +56,7 @@ class Users extends Component {
   render() {
     return (
       <div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>
-                Name
-              </th>
-              <th>
-                Email
-              </th>
-              <th>
-                Link
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            { this.addRows() }
-          </tbody>
-        </table>
+        { this.addContent() }
       </div>
     )
   }
