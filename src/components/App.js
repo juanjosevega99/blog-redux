@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Main from './Main'
 import Users from './Users'
+import Publications from './Publications'
 
 const Tasks = () => <div>Tasks</div>
 
@@ -11,6 +12,7 @@ const App = () => (
     <div className="margin">
       <Route exact path='/' component={ Users } />
       <Route exact path='/tasks' component={ Tasks } />
+      <Route exact path='/publications/:key' component={ Publications } />
     </div>
   </BrowserRouter>
 )
