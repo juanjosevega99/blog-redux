@@ -1,4 +1,4 @@
-// import { BRING_USERS, LOADING, ERROR} from '../types/usersTypes'
+import { BRING_USERS, LOADING, ERROR} from '../types/publicationsTypes'
 
 const INITIAL_STATE = {
   publications: [],
@@ -8,6 +8,18 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case BRING_USERS:
+      return { 
+        ...state, 
+        publications: action.payload,
+        loading: false
+      }
+
+    case LOADING:
+      return { ...state, loading: true }
+    
+    case ERROR:
+    return { ...state, error: action.payload, loading: false}
     
     default: return state;
   }

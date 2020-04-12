@@ -35,7 +35,7 @@ class Users extends Component {
 }
 
 const mapStateToProps = (reducers) => {
-  return reducers.usersReducers
+  return reducers.usersReducer;
 }
 
 export default connect(mapStateToProps, usersActions)(Users);
