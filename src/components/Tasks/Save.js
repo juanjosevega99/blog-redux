@@ -51,6 +51,9 @@ class Save extends Component {
   render() {
     return (
       <div>
+        {
+          (this.props.back) ? <Redirect to='/tasks' /> : ''
+        }
         <h1>
           Save task
         </h1>
