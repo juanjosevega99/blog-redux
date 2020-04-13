@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 import * as usersActions from '../../actions/usersActions'
-import * as publicationsActions from '../../actions/usersActions'
+import * as publicationsActions from '../../actions/publicationsActions'
 
 const { bringEverything: usersBringEverything } = usersActions
-const { bringEverything: publicationsBringEverything } = publicationsActions
+const { bringForUser: publicationsBringForUser } = publicationsActions
 
 class Publications extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     if (!this.props.usersReducer.users.length) {
-      this.props.usersBringEverything()
+      await this.props.usersBringEverything()
     }
+    this.props.publicationsBringForUser(this.props.match.params.key)
   }
   render() {
     console.log(this.props)
@@ -35,7 +36,7 @@ const mapStateToProps = ({ usersReducer, publicationsReducer }) => {
 
 const mapDispatchToProps = {
   usersBringEverything,
-  publicationsBringEverything
+  publicationsBringForUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Publications);
