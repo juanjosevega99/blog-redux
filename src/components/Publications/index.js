@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../General/Spinner';
 import Fatal from '../General/Fatal';
+import Comments from './Comments';
 
 import * as usersActions from '../../actions/usersActions'
 import * as publicationsActions from '../../actions/publicationsActions'
 
 const { bringEverything: usersBringEverything } = usersActions
-const { bringForUser: publicationsBringForUser, openClose } = publicationsActions
+const { 
+  bringForUser: publicationsBringForUser, 
+  openClose,
+  bringComments
+} = publicationsActions
 
 class Publications extends Component {
   async componentDidMount() {
@@ -85,7 +90,9 @@ class Publications extends Component {
       <div 
         className="pub_title"
         key={ publication.id }
-        onClick={ () => this.props.openClose(pub_key, com_key) }
+        onClick={ 
+          () => this.showComments(pub_key, com_key, publication.comments) 
+        }
       >
         <h2>
           { publication.title }
@@ -94,10 +101,15 @@ class Publications extends Component {
           { publication.body }
         </h3>
         {
-          (publication.open) ? 'open' : 'close'
+          (publication.open) ? <Comments /> : ''
         }
       </div>
     ))
+  )
+
+  showComments = (pub_key, com_key, publication.comments) => (
+    this.props.openClose(pub_key, com_key)
+    this.props.bringComments(pub_key, com_key)
   )
 
   render() {
@@ -121,7 +133,8 @@ const mapStateToProps = ({ usersReducer, publicationsReducer }) => {
 const mapDispatchToProps = {
   usersBringEverything,
   publicationsBringForUser,
-  openClose
+  openClose,
+  bringComments
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Publications);
