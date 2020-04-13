@@ -101,16 +101,18 @@ class Publications extends Component {
           { publication.body }
         </h3>
         {
-          (publication.open) ? <Comments /> : ''
+          (publication.open) ? <Comments comments={publication.comments} /> : ''
         }
       </div>
     ))
   )
 
-  showComments = (pub_key, com_key, publication.comments) => (
+  showComments = (pub_key, com_key, comments) => {
     this.props.openClose(pub_key, com_key)
-    this.props.bringComments(pub_key, com_key)
-  )
+    if (!comments.length) {
+      this.props.bringComments(pub_key, com_key)
+    }
+  }
 
   render() {
     console.log(this.props)

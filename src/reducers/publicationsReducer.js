@@ -1,9 +1,18 @@
-import { UPDATE, LOADING, ERROR} from '../types/publicationsTypes'
+import { 
+  UPDATE, 
+  LOADING, 
+  ERROR, 
+  COM_ERROR, 
+  COM_LOADING, 
+  COM_UPDATE
+} from '../types/publicationsTypes'
 
 const INITIAL_STATE = {
   publications: [],
   loading: false,
-  error: ''
+  error: '',
+  com_loading: false,
+  com_error: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,6 +30,20 @@ export default (state = INITIAL_STATE, action) => {
     
     case ERROR:
     return { ...state, error: action.payload, loading: false}
+    
+    case COM_UPDATE:
+      return { 
+        ...state, 
+        publications: action.payload,
+        com_loading: false,
+        com_error: ''
+      }
+      
+    case COM_LOADING:
+      return { ...state, com_loading: true }
+    
+    case COM_ERROR:
+    return { ...state, com_error: action.payload, com_loading: false}
     
     default: return state;
   }
