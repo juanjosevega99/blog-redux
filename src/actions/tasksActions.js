@@ -30,3 +30,17 @@ export const bringTasks = () => async (dispatch) => {
     })
   }
 }
+
+export const changeUserId = (user_id) => (dispatch) => {
+  dispatch({
+    type: 'change_user_id',
+    payload: user_id
+  })
+}
+
+export const changeTitle = (title) => (dispatch) => {
+  dispatch({
+    type: 'change_title',
+    payload: title
+  })
+}
