@@ -9,7 +9,9 @@ import * as usersActions from '../../actions/usersActions'
 class Users extends Component {
 
   componentDidMount() {
-    this.props.bringEverything()
+    if (!this.props.users.length) {
+      this.props.bringEverything()
+    }
   }
 
   addContent = () => {
