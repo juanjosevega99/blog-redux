@@ -48,6 +48,14 @@ class Tasks extends Component {
         {
           for_user[task_id].title
         }
+        <button className="m_left"> 
+          <Link to={`/tasks/save/${user_id}/${task_id}`}>
+            Edit
+          </Link>
+        </button>
+        <button className="m_left">
+          Delete
+        </button>
       </div>
     ))
   }
