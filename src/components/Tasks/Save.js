@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Spinner from '../General/Spinner';
+import Fatal from '../General/Fatal';
+import { Redirect } from 'react-router-dom';
 
 import * as tasksActions from '../../actions/tasksActions'
 
@@ -20,6 +23,29 @@ class Save extends Component {
       completed: false
     };
     add(new_task);
+  }
+
+  disable = () => {
+    const { user_id, title, loading } = this.props;
+
+    if (loading) {
+      return true;
+    }
+    if (!user_id || !title) {
+      return true;
+    }
+
+    return false;
+  };
+
+  showAction = () => {
+    const { error, loading } = this.props
+    if (loading) {
+      return <Spinner />
+    }
+    if (error) {
+      return <Fatal message={error} />
+    }
   }
 
   render() {
@@ -43,9 +69,11 @@ class Save extends Component {
         <br/><br/>
         <button
           onClick={ this.save }
+          disabled={ this.disable()}
         >
           Save
         </button>
+        { this.showAction() }
       </div>
     );
   }

@@ -1,4 +1,11 @@
-import { BRING_TASKS, LOADING, ERROR} from '../types/tasksTypes'
+import { 
+  BRING_TASKS, 
+  LOADING,
+  ERROR,
+  CHANGE_USER_ID,
+  CHANGE_TITLE,
+  ADD
+} from '../types/tasksTypes';
 
 const INITIAL_STATE = {
   tasks: {},
@@ -24,13 +31,13 @@ export default (state = INITIAL_STATE, action) => {
     case ERROR:
       return { ...state, error: action.payload, loading: false}
     
-    case 'change_user_id':
+    case CHANGE_USER_ID:
       return { ...state, user_id: action.payload }
     
-    case 'change_title':
+    case CHANGE_TITLE:
       return { ...state, title: action.payload }
     
-    case 'added':
+    case ADD:
       return { ...state, tasks: {}, loading: false, error: '' }
 
     default: return state;

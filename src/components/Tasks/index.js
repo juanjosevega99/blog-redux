@@ -8,7 +8,9 @@ import * as tasksActions from '../../actions/tasksActions'
 
 class Tasks extends Component {
   componentDidMount() {
-    this.props.bringTasks()
+    if (!Object.keys(this.props.tasks).length) {
+      this.props.bringTasks()
+    }
   }
 
   showContent = () => {
