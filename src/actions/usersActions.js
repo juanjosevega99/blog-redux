@@ -15,7 +15,7 @@ export const bringEverything = () => async (dispatch) => {
     console.log('Error: ', error.message)
     dispatch({
       type: ERROR,
-      payload: 'Something is bad, try after'
+      payload: 'User information not available'
     })
   }
 }

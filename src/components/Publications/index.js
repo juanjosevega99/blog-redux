@@ -7,7 +7,7 @@ import * as usersActions from '../../actions/usersActions'
 import * as publicationsActions from '../../actions/publicationsActions'
 
 const { bringEverything: usersBringEverything } = usersActions
-const { bringForUser: publicationsBringForUser } = publicationsActions
+const { bringForUser: publicationsBringForUser, openClose } = publicationsActions
 
 class Publications extends Component {
   async componentDidMount() {
@@ -51,12 +51,58 @@ class Publications extends Component {
     )
   }
 
+  addPublications = () => {
+    const {
+      usersReducer,
+      usersReducer: { users },
+      publicationsReducer,
+      publicationsReducer: { publications },
+      match: { params: { key } }
+    } = this.props
+
+    if (!users.length) return
+    if (usersReducer.error) return
+
+    if (publicationsReducer.loading) {
+      return <Spinner />
+    }
+    if (publicationsReducer.error) {
+      return <Fatal message={publicationsReducer.error} />
+    }
+    if (!publications.length) return;
+    if (!('publications_key' in users[key])) return;
+
+    const { publications_key } = users[key]
+
+    return this.showInfo(
+      publications[publications_key],
+      publications_key
+    )
+  };
+  
+  showInfo = (publications, pub_key) => (
+    publications.map((publication, com_key) => (
+      <div 
+        className="pub_title"
+        key={ publication.id }
+        onClick={ () => this.props.openClose(pub_key, com_key) }
+      >
+        <h2>
+          { publication.title }
+        </h2>
+        <h3>
+          { publication.body }
+        </h3>
+      </div>
+    ))
+  )
+
   render() {
     console.log(this.props)
     return (
       <div>
-        { this.props.match.params.key }
         { this.addUser() }
+        { this.addPublications() }
       </div>
     );
   }
@@ -71,7 +117,8 @@ const mapStateToProps = ({ usersReducer, publicationsReducer }) => {
 
 const mapDispatchToProps = {
   usersBringEverything,
-  publicationsBringForUser
+  publicationsBringForUser,
+  openClose
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Publications);
