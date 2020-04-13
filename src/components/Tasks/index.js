@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 import Spinner from '../General/Spinner';
 import Fatal from '../General/Fatal';
 
@@ -52,6 +53,11 @@ class Tasks extends Component {
   render() {
     return (
       <div>
+        <button>
+          <Link to='/tasks/save'>
+            Add
+          </Link>
+        </button>
         { this.showContent() }
       </div>
     );

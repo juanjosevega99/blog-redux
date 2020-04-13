@@ -4,6 +4,7 @@ import Main from './Main'
 import Users from './Users'
 import Publications from './Publications'
 import Tasks from './Tasks'
+import TasksSave from './Tasks/Save'
 
 const App = () => (
   <BrowserRouter>
@@ -12,6 +13,7 @@ const App = () => (
       <Route exact path='/' component={ Users } />
       <Route exact path='/tasks' component={ Tasks } />
       <Route exact path='/publications/:key' component={ Publications } />
+      <Route exact path='/tasks/save' component={ TasksSave } />
     </div>
   </BrowserRouter>
 )
