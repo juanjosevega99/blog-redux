@@ -11,6 +11,16 @@ class Save extends Component {
   changeTitle = (event) => {
     this.props.changeTitle(event.target.value)
   }
+  
+  save = () => {
+    const { user_id, title, add } = this.props
+    const new_task = {
+      user_id: user_id,
+      title: title,
+      completed: false
+    };
+    add(new_task);
+  }
 
   render() {
     return (
@@ -31,7 +41,9 @@ class Save extends Component {
           onChange={ this.changeTitle }
         />
         <br/><br/>
-        <button>
+        <button
+          onClick={ this.save }
+        >
           Save
         </button>
       </div>
