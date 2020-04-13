@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { BRING_FOR_USER, LOADING, ERROR} from '../types/publicationsTypes'
+import { UPDATE, LOADING, ERROR} from '../types/publicationsTypes'
 import * as usersTypes from '../types/usersTypes'
 
 const { BRING_USERS: USERS_BRING_EVERYTHING } = usersTypes
@@ -27,7 +27,7 @@ export const bringForUser = (key) => async (dispatch, getState) => {
     ]
 
     dispatch({
-      type: BRING_FOR_USER,
+      type: UPDATE,
       payload: updated_publications
     })
 
@@ -52,6 +52,23 @@ export const bringForUser = (key) => async (dispatch, getState) => {
   }
 }
 
-export const openClose = (pub_key, com_key) => (dispatch) => {
-  alert(pub_key, com_key)
+export const openClose = (pub_key, com_key) => (dispatch, getState) => {
+  const { publications } = getState().publicationsReducer
+  const selected = publications[pub_key][com_key]
+
+  const update = {
+    ...selected,
+    open: !selected.open
+  }
+
+  const updated_publications = [...publications]
+  updated_publications[pub_key] = [
+    ...publications[pub_key]
+  ]
+  updated_publications[pub_key][com_key] = update
+
+  dispatch({
+    type: UPDATE,
+    payload: updated_publications
+  })
 }
