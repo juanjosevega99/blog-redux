@@ -5,7 +5,9 @@ import {
   ERROR,
   CHANGE_USER_ID,
   CHANGE_TITLE,
-  ADD
+  SAVE,
+  UPDATE,
+  CLEAN
 } from '../types/tasksTypes';
 
 export const bringTasks = () => async (dispatch) => {
@@ -59,9 +61,8 @@ export const add = (new_task) => async (dispatch) => {
 
   try {
     const response = await axios.post('https://jsonplaceholder.typicode.com/todos', new_task)
-    console.log(response.data)
     dispatch({
-      type: ADD,
+      type: SAVE,
     })
   }
   catch (error) {
@@ -74,5 +75,69 @@ export const add = (new_task) => async (dispatch) => {
 }
 
 export const edit = (task_edited) => async (dispatch) => {
-  console.log(task_edited)
+  dispatch({
+    type: LOADING,
+  })
+
+  try {
+    const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${task_edited.id}`, task_edited)
+    dispatch({
+      type: SAVE,
+    })
+  }
+  catch (error) {
+    console.log(error.message)
+    dispatch({
+      type: ERROR,
+      payload: 'Try after'
+    })
+  }
+}
+
+export const changeCheck = (user_id, tas_id) => (dispatch, getState) => {
+  const { tasks } = getState().tasksReducer;
+  const selected = tasks[user_id][tas_id]
+
+  const updated = {
+    ...tasks
+  }
+  updated[user_id] = {
+    ...tasks[user_id]
+  }
+  updated[user_id][tas_id] = {
+    ...tasks[user_id][tas_id],
+    completed: !selected.completed
+  }
+
+  dispatch({
+    type: UPDATE,
+    payload: updated
+  })
+}
+
+export const deleted = (tas_id) => async (dispatch) => {
+  dispatch({
+    type: LOADING
+  })
+
+  try {
+    const response = await axios.delete(`https://jsonplaceholder.typicode.com/todos/${tas_id.id}`)
+    dispatch({
+      type: BRING_TASKS,
+      payload: {}
+    })
+  }
+  catch (error) {
+    console.log(error.message)
+    dispatch({
+      type: ERROR,
+      tasks: 'Service not available'
+    })
+  }
+}
+
+export const cleanForma = () => (dispatch) => {
+  dispatch({
+    type: CLEAN,
+  })
 }
